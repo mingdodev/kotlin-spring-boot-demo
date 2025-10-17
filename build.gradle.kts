@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "2.2.20"
-    kotlin("plugin.spring") version "2.2.20"
+    kotlin("jvm") version "2.0.21"
+    kotlin("plugin.spring") version "2.0.21"
     id("org.springframework.boot") version "3.5.6"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -37,10 +37,10 @@ dependencies {
     runtimeOnly("com.h2database:h2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("io.kotest:kotest-runner-junit5:6.0.4")
-    testImplementation ("io.kotest:kotest-assertions-core:6.0.4")
-    testImplementation ("io.kotest:kotest-property:6.0.4")
-    testImplementation("io.kotest:kotest-extensions-spring:6.0.4")
+    testImplementation("io.kotest:kotest-runner-junit5:5.9.1")
+    testImplementation ("io.kotest:kotest-assertions-core:5.9.1")
+    testImplementation ("io.kotest:kotest-property:5.9.1")
+    testImplementation("io.kotest:kotest-extensions-spring:4.3.2")
 
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
