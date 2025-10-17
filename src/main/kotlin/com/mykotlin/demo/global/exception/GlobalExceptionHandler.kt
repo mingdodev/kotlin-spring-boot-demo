@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.slf4j.LoggerFactory
+import org.springframework.web.bind.MethodArgumentNotValidException
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
@@ -20,6 +21,16 @@ class GlobalExceptionHandler {
         val detail = ProblemDetail.forStatusAndDetail(errorCode.httpStatus, errorCode.message)
         detail.title = errorCode.title
         detail.setProperty("bizCode", errorCode.code)
+
+        return ResponseEntity.of(detail).build()
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleMethodArgumentNotValidException(e: MethodArgumentNotValidException): ResponseEntity<ProblemDetail> {
+        log.warn("MethodArgumentNotValidException Occurred: ${e.bindingResult.fieldError?.defaultMessage}", e)
+
+        val detail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.bindingResult.fieldError?.defaultMessage)
+        detail.title = "Invalid Parameters"
 
         return ResponseEntity.of(detail).build()
     }

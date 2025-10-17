@@ -5,6 +5,7 @@ import com.mykotlin.demo.domain.user.api.response.UserCreateResponse
 import com.mykotlin.demo.domain.user.api.toCreateResponse
 import com.mykotlin.demo.domain.user.service.UserService
 import com.mykotlin.demo.global.response.ApiResponse
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 class UserController(private val userService: UserService) {
 
     @PostMapping("/signup")
-    fun signUp(@RequestBody request: UserCreateRequest): ApiResponse<UserCreateResponse> {
+    fun signUp(@RequestBody @Valid request: UserCreateRequest): ApiResponse<UserCreateResponse> {
         val user = userService.signup(request)
 
         return ApiResponse.success(user.toCreateResponse(), "회원 가입에 성공했습니다.")
