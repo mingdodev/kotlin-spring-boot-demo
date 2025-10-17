@@ -18,16 +18,18 @@ class UserDao {
         createdAt = this[Users.createdAt]
     )
 
-    fun insert(name: String, email: String, passwordHash: String): User = transaction {
-        val newId = Users.insertAndGetId {
+    fun insert(name: String, email: String, passwordHash: String): Long = transaction {
+        Users.insertAndGetId {
             it[Users.name] = name
             it[Users.email] = email
             it[Users.password] = passwordHash
-        }
+        }.value
+    }
 
-        Users.selectAll().where { Users.id eq newId }
-            .single()
-            .toDomain()
+    fun findById(id: Long): User? = transaction {
+        Users.selectAll().where { Users.id eq id }
+            .singleOrNull()
+            ?.toDomain()
     }
 
     fun existsByEmail(email: String): Boolean = transaction {

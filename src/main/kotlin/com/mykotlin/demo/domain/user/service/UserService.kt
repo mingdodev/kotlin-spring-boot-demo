@@ -15,11 +15,14 @@ class UserService(val userDao: UserDao) {
         // TO DO: 비밀번호 암호화
         val passwordHash = "hashed_" + request.password
 
-        val user = userDao.insert(
+        val userId = userDao.insert(
             name = request.name,
             email = request.email,
             passwordHash = passwordHash
         )
+
+        val user = userDao.findById(userId)
+            ?: throw BusinessException(ErrorCode.USER_NOT_FOUND)
 
         return user
     }
