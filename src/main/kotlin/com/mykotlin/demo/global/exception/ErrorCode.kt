@@ -9,6 +9,6 @@ enum class ErrorCode(
     val code: String,
 ) {
     // User
-    USER_NOT_FOUND("Data Not Found Error", "사용자를 찾을 수 없습니다.", HttpStatus.NOT_FOUND, "USER_NOT_FOUND"),
-    DUPLICATE_EMAIL("Data Conflict Error", "이미 존재하는 이메일입니다.", HttpStatus.CONFLICT, "DUPLICATE_EMAIL"),
+    USER_NOT_FOUND("Data Not Found", "사용자를 찾을 수 없습니다.", HttpStatus.NOT_FOUND, "user-not-found"),
+    DUPLICATE_EMAIL("Data Conflict", "이미 존재하는 이메일입니다.", HttpStatus.CONFLICT, "duplicate-email"),
 }
