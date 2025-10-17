@@ -1,6 +1,6 @@
 plugins {
-    kotlin("jvm") version "2.2.0"
-    kotlin("plugin.spring") version "2.2.0"
+    kotlin("jvm") version "2.2.20"
+    kotlin("plugin.spring") version "2.2.20"
     id("org.springframework.boot") version "3.5.6"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -26,13 +26,13 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.exposed:exposed-core:1.0.0-rc-2")
-    implementation("org.jetbrains.exposed:exposed-jdbc:1.0.0-rc-2")
-    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:1.0.0-rc-2")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.exposed:exposed-core:1.0.0-rc-2")
+    implementation("org.jetbrains.exposed:exposed-jdbc:1.0.0-rc-2")
+    implementation("org.jetbrains.exposed:exposed-kotlin-datetime:1.0.0-rc-2")
 
     runtimeOnly("com.h2database:h2")
 
