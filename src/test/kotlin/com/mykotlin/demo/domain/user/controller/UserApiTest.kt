@@ -2,19 +2,14 @@ package com.mykotlin.demo.domain.user.controller
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.mykotlin.demo.domain.user.api.request.UserCreateRequest
-import com.mykotlin.demo.global.response.ApiResponse
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.contain
-import org.junit.jupiter.api.Assertions.*
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.assertj.MockMvcTester
-import org.springframework.test.web.servlet.assertj.MvcTestResult
 import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
