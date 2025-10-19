@@ -1,5 +1,6 @@
 package com.mykotlin.demo.domain.user.service
 
+import com.mykotlin.demo.TestConfig
 import com.mykotlin.demo.domain.user.api.request.UserCreateRequest
 import com.mykotlin.demo.global.exception.BusinessException
 import com.mykotlin.demo.global.exception.ErrorCode
@@ -8,10 +9,12 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.context.annotation.Import
 import org.springframework.transaction.annotation.Transactional
 
 @SpringBootTest
 @Transactional
+@Import(TestConfig::class)
 class UserServiceTest(
     private val userService: UserService,
 ) : DescribeSpec({
@@ -23,6 +26,8 @@ class UserServiceTest(
                 val request = UserCreateRequest("NewName", "new@example.com", "password")
 
                 val user = userService.signup(request)
+
+                println(user.password)
 
                 user.id shouldNotBe null
                 user.name shouldBe "NewName"
