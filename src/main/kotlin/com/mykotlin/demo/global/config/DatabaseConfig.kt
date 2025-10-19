@@ -1,6 +1,6 @@
 package com.mykotlin.demo.global.config
 
-import com.mykotlin.demo.domain.user.repository.Users
+import com.mykotlin.demo.domain.user.repository.UserTable
 import org.jetbrains.exposed.v1.jdbc.Database
 import org.jetbrains.exposed.v1.jdbc.SchemaUtils
 import org.jetbrains.exposed.v1.jdbc.transactions.transaction
@@ -17,7 +17,7 @@ class DatabaseConfig(private val dataSource: DataSource) {
         Database.connect(dataSource)
 
         transaction {
-            SchemaUtils.create(Users)
+            SchemaUtils.create(UserTable)
         }
     }
 }

@@ -13,30 +13,30 @@ import org.springframework.stereotype.Repository
 class UserRepositoryExposedImpl : UserRepository {
 
     private fun ResultRow.toDomain(): User = User(
-        id = this[Users.id].value,
-        name = this[Users.name],
-        email = this[Users.email],
-        password = this[Users.password],
-        createdAt = this[Users.createdAt]
+        id = this[UserTable.id].value,
+        name = this[UserTable.name],
+        email = this[UserTable.email],
+        password = this[UserTable.password],
+        createdAt = this[UserTable.createdAt]
     )
 
     override fun insert(name: String, email: String, passwordHash: String): Long = transaction {
-        Users.insertAndGetId {
-            it[Users.name] = name
-            it[Users.email] = email
-            it[Users.password] = passwordHash
+        UserTable.insertAndGetId {
+            it[UserTable.name] = name
+            it[UserTable.email] = email
+            it[UserTable.password] = passwordHash
         }.value
     }
 
     override fun findById(id: Long): User? = transaction {
-        Users.selectAll().where { Users.id eq id }
+        UserTable.selectAll().where { UserTable.id eq id }
             .singleOrNull()
             ?.toDomain()
     }
 
     override fun existsByEmail(email: String): Boolean = transaction {
-        Users.select(Users.id)
-            .where { Users.email eq email }
+        UserTable.select(UserTable.id)
+            .where { UserTable.email eq email }
             .limit(1)
             .count() > 0
     }
