@@ -8,12 +8,14 @@ import com.mykotlin.demo.global.exception.ErrorCode
 import org.springframework.stereotype.Service
 
 @Service
-class UserService(val userRepository: UserRepository) {
+class UserService(
+    private val userRepository: UserRepository,
+    private val passwordEncoder: PasswordEncoder
+) {
     fun signup(request: UserCreateRequest): User {
         checkEmail(request.email)
 
-        // TO DO: 비밀번호 암호화
-        val passwordHash = "hashed_" + request.password
+        val passwordHash = passwordEncoder.encode(request.password)
 
         val userId = userRepository.insert(
             name = request.name,
