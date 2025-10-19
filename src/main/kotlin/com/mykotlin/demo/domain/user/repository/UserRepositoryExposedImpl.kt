@@ -10,7 +10,7 @@ import org.jetbrains.exposed.v1.jdbc.transactions.transaction
 import org.springframework.stereotype.Repository
 
 @Repository
-class UserDao {
+class UserRepositoryExposedImpl : UserRepository {
 
     private fun ResultRow.toDomain(): User = User(
         id = this[Users.id].value,
@@ -20,7 +20,7 @@ class UserDao {
         createdAt = this[Users.createdAt]
     )
 
-    fun insert(name: String, email: String, passwordHash: String): Long = transaction {
+    override fun insert(name: String, email: String, passwordHash: String): Long = transaction {
         Users.insertAndGetId {
             it[Users.name] = name
             it[Users.email] = email
@@ -28,13 +28,13 @@ class UserDao {
         }.value
     }
 
-    fun findById(id: Long): User? = transaction {
+    override fun findById(id: Long): User? = transaction {
         Users.selectAll().where { Users.id eq id }
             .singleOrNull()
             ?.toDomain()
     }
 
-    fun existsByEmail(email: String): Boolean = transaction {
+    override fun existsByEmail(email: String): Boolean = transaction {
         Users.select(Users.id)
             .where { Users.email eq email }
             .limit(1)
