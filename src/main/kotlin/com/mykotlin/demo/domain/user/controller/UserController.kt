@@ -15,7 +15,7 @@ class UserController(private val userService: UserService) {
 
     @PostMapping("/signup")
     fun signUp(@RequestBody @Valid request: UserCreateRequest): ApiResponse<UserCreateResponse> {
-        val user = userService.signup(request)
+        val user = userService.signup(request.name, request.email, request.password)
 
         return ApiResponse.success(user.toCreateResponse(), "회원 가입에 성공했습니다.")
     }

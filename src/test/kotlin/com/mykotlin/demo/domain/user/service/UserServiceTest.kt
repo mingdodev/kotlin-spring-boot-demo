@@ -23,9 +23,7 @@ class UserServiceTest(
 
         context("유효한 정보를 입력했을 경우") {
             it("사용자가 성공적으로 생성되어야 한다") {
-                val request = UserCreateRequest("NewName", "new@example.com", "password")
-
-                val user = userService.signup(request)
+                val user = userService.signup("NewName", "new@example.com", "password")
 
                 println(user.password)
 
@@ -37,10 +35,8 @@ class UserServiceTest(
 
         context("이미 존재하는 이메일을 입력했을 경우") {
             it("BusinessException이 발생한다") {
-                val request2 = UserCreateRequest("NewName2", "new@example.com", "password2")
-
                 val exception = shouldThrow<BusinessException> {
-                    userService.signup(request2)
+                    userService.signup("NewName2", "new@example.com", "password2")
                 }
 
                 exception.errorCode shouldBe ErrorCode.DUPLICATE_EMAIL

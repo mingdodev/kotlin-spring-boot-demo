@@ -12,14 +12,14 @@ class UserService(
     private val userRepository: UserRepository,
     private val passwordEncoder: PasswordEncoder
 ) {
-    fun signup(request: UserCreateRequest): User {
-        checkEmail(request.email)
+    fun signup(name: String, email: String, password: String): User {
+        checkEmail(email)
 
-        val passwordHash = passwordEncoder.encode(request.password)
+        val passwordHash = passwordEncoder.encode(password)
 
         val userId = userRepository.insert(
-            name = request.name,
-            email = request.email,
+            name = name,
+            email = email,
             passwordHash = passwordHash
         )
 
